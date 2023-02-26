@@ -3,8 +3,7 @@ const download = require('download');
 const delay = require('delay');
 
 const url = 'https://pixabay.com/fr/music/search/lofi%20hip%20hop/';
-const downloadPath = './download';
-const classSelector = 'a.download.audio-download';
+const downloadPath = 'D:/WebDevProjects/desktop_timer/desktop_pomodoro_timer/src/assets/audio/lofi-hip-hop';
 
 async function downloadFiles() {
     const browser = await puppeteer.launch({
@@ -23,7 +22,7 @@ async function downloadFiles() {
 
     try {
         const elements = await page.evaluate(() => {
-            const audioLink = document.querySelectorAll(classSelector);
+            const audioLink = document.querySelectorAll('a.download.audio-download');
             const urls = Array.from(audioLink).map(v => v.href);
             return urls;
         });
@@ -36,6 +35,8 @@ async function downloadFiles() {
     } catch(err) {
         console.error(err);
     }
+
+    await browser.close();
 }
 
 downloadFiles();
